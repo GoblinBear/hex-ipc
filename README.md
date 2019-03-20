@@ -1,3 +1,3 @@
 # HEX-IPC
 
-HEX-IPC is an UNIX domain socket IPC.
+HEX-IPC is an ES6 compatible UNIX domain socket IPC.
