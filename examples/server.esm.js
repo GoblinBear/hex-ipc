@@ -1,12 +1,13 @@
 import fs from 'fs';
-import { Serialize, _Deserialize } from 'beson';
+import { Serialize, Helper } from 'beson';
 
 (async()=>{
 	"use strict";
 	
+	const { _deserialize } = Helper;
 	const { default: IPCServer } = await import('../ipc-server.esm.js');
 	
-	const socketPath = './socket';
+	const socketPath = '/home/bear/hex.sock';
 	if (fs.existsSync(socketPath)) {
 		console.log("[Info] Socket file exists.");
 		fs.unlinkSync(socketPath);
@@ -14,7 +15,7 @@ import { Serialize, _Deserialize } from 'beson';
 
 	const IPCInst = new IPCServer();
 	IPCInst._serializer = (input)=>{return Serialize(input);};
-	IPCInst._deserializer = (input, anchor)=>{return _Deserialize(input, anchor);};
+	IPCInst._deserializer = (input, anchor)=>{return _deserialize(input, anchor);};
 	
 	IPCInst
 	.on('connected', (e)=>{
